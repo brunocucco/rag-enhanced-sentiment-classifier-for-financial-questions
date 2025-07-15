@@ -13,7 +13,7 @@ MODEL_OPTIONS = {
 }
 
 # Load embedder
-embedder = SentenceTransformer("all-MiniLM-L6-v2")
+embedder = SentenceTransformer("all-MiniLM-L6-v2", device='cpu')
 
 def clean_html(text):
     text = re.sub(r'<a.*?>.*?</a>', '', text)
