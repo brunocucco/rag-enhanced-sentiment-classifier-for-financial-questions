@@ -13,7 +13,14 @@ MODEL_OPTIONS = {
 }
 
 # Load embedder
-embedder = SentenceTransformer("all-MiniLM-L6-v2", device='cpu')
+@st.cache_resource
+def load_embedder():
+    model = SentenceTransformer("all-MiniLM-L6-v2", device='cpu')
+    # force materialization
+    model.encode(["test"])  # warmup
+    return model
+
+embedder = load_embedder()
 
 def clean_html(text):
     text = re.sub(r'<a.*?>.*?</a>', '', text)
