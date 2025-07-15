@@ -15,9 +15,9 @@ MODEL_OPTIONS = {
 # Load embedder
 @st.cache_resource
 def load_embedder():
-    model = SentenceTransformer("all-MiniLM-L6-v2", device='cpu')
-    # force materialization
-    model.encode(["test"])  # warmup
+    from sentence_transformers import SentenceTransformer
+    model = SentenceTransformer("all-MiniLM-L6-v2") 
+    model.to('cpu') 
     return model
 
 embedder = load_embedder()
